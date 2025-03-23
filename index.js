@@ -25,8 +25,8 @@ const commitAndPushChanges = async (runCount) => {
     console.log(`Detected ${fileCount} changed files`);
     
     // Only commit if more than one file has changed
-    if (fileCount <= 1) {
-      console.log('Only one file changed, skipping commit');
+    if (fileCount <= 2) {
+      console.log('Less file changed, skipping commit');
       return false;
     }
     
@@ -57,32 +57,32 @@ const commitAndPushChanges = async (runCount) => {
 const processAllChains = async (runCount) => {
   const chains = [
     // Arbitrum Mainnet
-    {
-      CHAIN_ID: 42161,
-      PRIZE_POOL_ADDRESS: "0x52e7910c4c287848c8828e8b17b8371f4ebc5d42",
-      JSON_RPC_URL: "https://arbitrum.llamarpc.com",
-      CONTRACT_JSON_URL: "https://raw.githubusercontent.com/GenerationSoftware/pt-v5-mainnet/bc9e4b4c25a033ec3c1c2b89b62422399b7db2f6/deployments/arbitrum/contracts.json",
-      SUBGRAPH_URL: 'https://api.studio.thegraph.com/query/63100/pt-v5-arbitrum/version/latest',
-      REMOTE_STATUS_URL: 'https://raw.githubusercontent.com/GenerationSoftware/pt-v5-winners/refs/heads/main/winners/vaultAccounts'
-    },
-    // Optimism Mainnet
-    {
-      CHAIN_ID: 10,
-      PRIZE_POOL_ADDRESS: "0xf35fe10ffd0a9672d0095c435fd8767a7fe29b55",
-      JSON_RPC_URL: "https://optimism.llamarpc.com",
-      CONTRACT_JSON_URL: "https://raw.githubusercontent.com/GenerationSoftware/pt-v5-mainnet/bc9e4b4c25a033ec3c1c2b89b62422399b7db2f6/deployments/optimism/contracts.json",
-      SUBGRAPH_URL: 'https://api.studio.thegraph.com/query/63100/pt-v5-optimism/version/latest?source=pooltogether',
-      REMOTE_STATUS_URL: 'https://raw.githubusercontent.com/GenerationSoftware/pt-v5-winners/refs/heads/main/winners/vaultAccounts'
-    },
-    // Base Mainnet
-    {
-      CHAIN_ID: 8453,
-      PRIZE_POOL_ADDRESS: "0x45b2010d8A4f08b53c9fa7544C51dFd9733732cb",
-      JSON_RPC_URL: "https://base.llamarpc.com",
-      CONTRACT_JSON_URL: "https://raw.githubusercontent.com/GenerationSoftware/pt-v5-mainnet/bc9e4b4c25a033ec3c1c2b89b62422399b7db2f6/deployments/base/contracts.json",
-      SUBGRAPH_URL: 'https://subgraph.satsuma-prod.com/17063947abe2/g9-software-inc--666267/pt-v5-base/version/v0.0.1/api',
-      REMOTE_STATUS_URL: 'https://raw.githubusercontent.com/GenerationSoftware/pt-v5-winners/refs/heads/main/winners/vaultAccounts'
-    },
+    // {
+    //   CHAIN_ID: 42161,
+    //   PRIZE_POOL_ADDRESS: "0x52e7910c4c287848c8828e8b17b8371f4ebc5d42",
+    //   JSON_RPC_URL: "https://arbitrum.llamarpc.com",
+    //   CONTRACT_JSON_URL: "https://raw.githubusercontent.com/GenerationSoftware/pt-v5-mainnet/bc9e4b4c25a033ec3c1c2b89b62422399b7db2f6/deployments/arbitrum/contracts.json",
+    //   SUBGRAPH_URL: 'https://api.studio.thegraph.com/query/63100/pt-v5-arbitrum/version/latest',
+    //   REMOTE_STATUS_URL: 'https://raw.githubusercontent.com/GenerationSoftware/pt-v5-winners/refs/heads/main/winners/vaultAccounts'
+    // },
+    // // Optimism Mainnet
+    // {
+    //   CHAIN_ID: 10,
+    //   PRIZE_POOL_ADDRESS: "0xf35fe10ffd0a9672d0095c435fd8767a7fe29b55",
+    //   JSON_RPC_URL: "https://optimism.llamarpc.com",
+    //   CONTRACT_JSON_URL: "https://raw.githubusercontent.com/GenerationSoftware/pt-v5-mainnet/bc9e4b4c25a033ec3c1c2b89b62422399b7db2f6/deployments/optimism/contracts.json",
+    //   SUBGRAPH_URL: 'https://api.studio.thegraph.com/query/63100/pt-v5-optimism/version/latest?source=pooltogether',
+    //   REMOTE_STATUS_URL: 'https://raw.githubusercontent.com/GenerationSoftware/pt-v5-winners/refs/heads/main/winners/vaultAccounts'
+    // },
+    // // Base Mainnet
+    // {
+    //   CHAIN_ID: 8453,
+    //   PRIZE_POOL_ADDRESS: "0x45b2010d8A4f08b53c9fa7544C51dFd9733732cb",
+    //   JSON_RPC_URL: "https://base.llamarpc.com",
+    //   CONTRACT_JSON_URL: "https://raw.githubusercontent.com/GenerationSoftware/pt-v5-mainnet/bc9e4b4c25a033ec3c1c2b89b62422399b7db2f6/deployments/base/contracts.json",
+    //   SUBGRAPH_URL: 'https://subgraph.satsuma-prod.com/17063947abe2/g9-software-inc--666267/pt-v5-base/version/v0.0.1/api',
+    //   REMOTE_STATUS_URL: 'https://raw.githubusercontent.com/GenerationSoftware/pt-v5-winners/refs/heads/main/winners/vaultAccounts'
+    // },
     // Gnosis Mainnet
     {
       CHAIN_ID: 100,
@@ -93,14 +93,14 @@ const processAllChains = async (runCount) => {
       REMOTE_STATUS_URL: 'https://raw.githubusercontent.com/GenerationSoftware/pt-v5-winners/refs/heads/main/winners/vaultAccounts'
     },
     // Scroll Mainnet
-    {
-      CHAIN_ID: 534352,
-      PRIZE_POOL_ADDRESS: "0xa6ecd65c3eecdb59c2f74956ddf251ab5d899845",
-      JSON_RPC_URL: "https://1rpc.io/scroll",
-      CONTRACT_JSON_URL: "https://raw.githubusercontent.com/GenerationSoftware/pt-v5-mainnet/196aa20f4a0b3e651d0504ffeb0e1b9a08c7ccb6/deployments/scroll/contracts.json",
-      SUBGRAPH_URL: 'https://api.studio.thegraph.com/query/63100/pt-v5-scroll/version/latest',
-      REMOTE_STATUS_URL: 'https://raw.githubusercontent.com/GenerationSoftware/pt-v5-winners/refs/heads/main/winners/vaultAccounts'
-    },
+    // {
+    //   CHAIN_ID: 534352,
+    //   PRIZE_POOL_ADDRESS: "0xa6ecd65c3eecdb59c2f74956ddf251ab5d899845",
+    //   JSON_RPC_URL: "https://1rpc.io/scroll",
+    //   CONTRACT_JSON_URL: "https://raw.githubusercontent.com/GenerationSoftware/pt-v5-mainnet/196aa20f4a0b3e651d0504ffeb0e1b9a08c7ccb6/deployments/scroll/contracts.json",
+    //   SUBGRAPH_URL: 'https://api.studio.thegraph.com/query/63100/pt-v5-scroll/version/latest',
+    //   REMOTE_STATUS_URL: 'https://raw.githubusercontent.com/GenerationSoftware/pt-v5-winners/refs/heads/main/winners/vaultAccounts'
+    // },
   ];
 
   const OUTPUT_DIRECTORY_NAME = "winners/vaultAccounts";
