@@ -8,6 +8,43 @@ const execPromise = util.promisify(exec);
 // Add a sleep function to wait between runs
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+// Function to check for and commit changes
+const commitAndPushChanges = async (runCount) => {
+  try {
+    console.log('Checking for changes to commit...');
+    
+    // Check if there are any changes
+    const { stdout: statusOutput } = await execPromise('git status --porcelain');
+    
+    if (!statusOutput.trim()) {
+      console.log('No changes detected, skipping commit');
+      return false;
+    }
+    
+    console.log('Changes detected, committing and pushing...');
+    
+    // Configure git
+    await execPromise('git config --local user.email "bot@pooltogether.com"');
+    await execPromise('git config --local user.name "PT Winners Bot"');
+    
+    // Add all changes
+    await execPromise('git add .');
+    
+    // Commit with timestamp
+    const timestamp = new Date().toISOString();
+    await execPromise(`git commit -m "Update winners data - Run #${runCount} at ${timestamp}"`);
+    
+    // Push changes
+    await execPromise('git push');
+    
+    console.log('Successfully committed and pushed changes');
+    return true;
+  } catch (error) {
+    console.error('Error committing changes:', error.message);
+    return false;
+  }
+};
+
 const processAllChains = async () => {
   const chains = [
     // Arbitrum Mainnet
@@ -120,6 +157,12 @@ const main = async () => {
     try {
       const successCount = await processAllChains();
       console.log(`Run #${runCount} completed with ${successCount} successful chains`);
+      
+      // Commit and push any changes
+      const committed = await commitAndPushChanges(runCount);
+      if (committed) {
+        console.log(`Changes from run #${runCount} have been committed and pushed`);
+      }
     } catch (error) {
       console.error(`Error in run #${runCount}:`, error.message);
     }
