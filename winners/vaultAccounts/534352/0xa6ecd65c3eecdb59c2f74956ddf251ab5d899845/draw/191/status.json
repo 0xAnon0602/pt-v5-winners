@@ -1,8 +1,8 @@
 {
   "status": "FAILURE",
-  "createdAt": 1742766661971,
-  "updatedAt": 1742766665127,
-  "runtime": 4,
+  "createdAt": 1742766839105,
+  "updatedAt": 1742766840439,
+  "runtime": 2,
   "error": {
     "reason": "missing revert data in call exception; Transaction reverted without a reason string",
     "code": "CALL_EXCEPTION",
@@ -13,33 +13,15 @@
       "accessList": null
     },
     "error": {
-      "reason": "bad response",
+      "reason": "processing response error",
       "code": "SERVER_ERROR",
-      "status": 408,
-      "headers": {
-        "date": "Sun, 23 Mar 2025 21:51:04 GMT",
-        "content-type": "application/json",
-        "transfer-encoding": "chunked",
-        "connection": "keep-alive",
-        "access-control-allow-origin": "*",
-        "vary": "Accept-Encoding",
-        "x-drpc-owner-id": "cb501251-31a8-4028-8b0a-54679f15c385",
-        "x-drpc-owner-tier": "free",
-        "x-drpc-provider-id": "drpc-public-multiregion",
-        "x-drpc-trace-id": "64e2c68098e456c9aae22f9f6a6eeb51",
-        "strict-transport-security": "max-age=31536000; includeSubDomains",
-        "access-control-allow-credentials": "true",
-        "access-control-allow-methods": "GET, PUT, POST, DELETE, PATCH, OPTIONS",
-        "access-control-allow-headers": "DNT,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization",
-        "access-control-max-age": "1728000",
-        "cf-cache-status": "DYNAMIC",
-        "server": "cloudflare",
-        "cf-ray": "925125d98d0b8581-BOM"
+      "body": "{\"jsonrpc\":\"2.0\",\"error\":{\"code\":-32000,\"message\":\"json: cannot unmarshal string into Go struct field Response.error of type xjsonrpc.ResponseError\"},\"id\":43}",
+      "error": {
+        "code": -32000
       },
-      "body": "{\"id\":43,\"jsonrpc\":\"2.0\",\"error\":{\"message\":\"Request timeout on the free tier, please upgrade your tier to the paid one\",\"code\":28}}",
       "requestBody": "{\"method\":\"eth_call\",\"params\":[{\"to\":\"0xca11bde05977b3631167028862be2a173976ca11\",\"data\":\"0xbce38bd70000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000020000000000000000000000000a6ecd65c3eecdb59c2f74956ddf251ab5d899845000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000044942199600000000000000000000000000000000000000000000000000000000\"},\"latest\"],\"id\":43,\"jsonrpc\":\"2.0\"}",
       "requestMethod": "POST",
-      "url": "https://scroll.drpc.org"
+      "url": "https://1rpc.io/scroll"
     }
   }
 }
