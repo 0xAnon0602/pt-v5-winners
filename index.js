@@ -21,7 +21,19 @@ const commitAndPushChanges = async (runCount) => {
       return false;
     }
     
-    console.log('Changes detected, committing and pushing...');
+    // Count the number of changed files
+    const changedFiles = statusOutput.trim().split('\n');
+    const fileCount = changedFiles.length;
+    
+    console.log(`Detected ${fileCount} changed files`);
+    
+    // Only commit if more than one file has changed
+    if (fileCount <= 1) {
+      console.log('Only one file changed, skipping commit');
+      return false;
+    }
+    
+    console.log('Multiple files changed, committing and pushing...');
     
     // Configure git
     await execPromise('git config --local user.email "bot@pooltogether.com"');
@@ -37,7 +49,7 @@ const commitAndPushChanges = async (runCount) => {
     // Push changes
     await execPromise('git push');
     
-    console.log('Successfully committed and pushed changes');
+    console.log(`Successfully committed and pushed ${fileCount} changed files`);
     return true;
   } catch (error) {
     console.error('Error committing changes:', error.message);
@@ -167,8 +179,8 @@ const main = async () => {
       console.error(`Error in run #${runCount}:`, error.message);
     }
     
-    console.log(`Waiting 10 seconds before next run...`);
-    await sleep(10000); // Wait 10 seconds
+    console.log(`Waiting 30 seconds before next run...`);
+    await sleep(30000); // Wait 10 seconds
   }
 };
 
