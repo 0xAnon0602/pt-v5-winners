@@ -57,7 +57,7 @@ const commitAndPushChanges = async (runCount) => {
   }
 };
 
-const processAllChains = async () => {
+const processAllChains = async (runCount) => {
   const chains = [
     // Arbitrum Mainnet
     {
@@ -111,7 +111,7 @@ const processAllChains = async () => {
   // Process all chains in parallel
   console.log(`Starting to process ${chains.length} chains in parallel...`);
   
-  const processChain = async (chain) => {
+  const processChain = async (chain,runCount) => {
     try {
       console.log(`Processing chain ${chain.CHAIN_ID}...`);
       
@@ -126,6 +126,12 @@ const processAllChains = async () => {
       
       console.log(`Output for chain ${chain.CHAIN_ID}:`, stdout);
       console.log(`Completed processing chain ${chain.CHAIN_ID}`);
+
+      // Commit and push any changes
+      const committed = await commitAndPushChanges(runCount);
+      if (committed) {
+        console.log(`Changes from run #${runCount} have been committed and pushed`);
+      }
       
       return { chainId: chain.CHAIN_ID, success: true };
     } catch (error) {
@@ -135,7 +141,7 @@ const processAllChains = async () => {
   };
 
   // Run all chains in parallel and wait for all to complete
-  const results = await Promise.all(chains.map(chain => processChain(chain)));
+  const results = await Promise.all(chains.map(chain => processChain(chain,runCount)));
   
   // Summarize results
   console.log('\n--- Processing Summary ---');
@@ -167,7 +173,7 @@ const main = async () => {
     console.log(`\n=== Run #${runCount} at ${currentTime} ===`);
     
     try {
-      const successCount = await processAllChains();
+      const successCount = await processAllChains(runCount);
       console.log(`Run #${runCount} completed with ${successCount} successful chains`);
       
       // Commit and push any changes
@@ -180,7 +186,7 @@ const main = async () => {
     }
     
     console.log(`Waiting 30 seconds before next run...`);
-    await sleep(30000); // Wait 10 seconds
+    await sleep(30000); // Wait 30 seconds
   }
 };
 
