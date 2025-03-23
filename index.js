@@ -160,7 +160,7 @@ const main = async () => {
   
   let runCount = 0;
   
-  // Run continuously with a delay between runs
+  // Run continuously with a 10-second delay between runs
   while (true) {
     runCount++;
     const currentTime = new Date().toISOString();
@@ -170,21 +170,17 @@ const main = async () => {
       const successCount = await processAllChains();
       console.log(`Run #${runCount} completed with ${successCount} successful chains`);
       
-      // Commit and push any changes as long as at least one chain was processed successfully
-      if (successCount > 0) {
-        const committed = await commitAndPushChanges(runCount);
-        if (committed) {
-          console.log(`Changes from run #${runCount} have been committed and pushed`);
-        }
-      } else {
-        console.log('No chains processed successfully, skipping commit');
+      // Commit and push any changes
+      const committed = await commitAndPushChanges(runCount);
+      if (committed) {
+        console.log(`Changes from run #${runCount} have been committed and pushed`);
       }
     } catch (error) {
       console.error(`Error in run #${runCount}:`, error.message);
     }
     
     console.log(`Waiting 30 seconds before next run...`);
-    await sleep(30000); // Wait 30 seconds
+    await sleep(30000); // Wait 10 seconds
   }
 };
 
