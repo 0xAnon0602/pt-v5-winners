@@ -1,4 +1,4 @@
-const { exec } = require('child_process');
+const { exec, spawn } = require('child_process');
 const util = require('util');
 const execPromise = util.promisify(exec);
 
@@ -87,6 +87,7 @@ const processAllChains = async (runCount) => {
     {
       CHAIN_ID: 100,
       PRIZE_POOL_ADDRESS: "0x0c08c2999e1a14569554eddbcda9da5e1918120f",
+      MULTICALL_ADDRESS: "0xcA11bde05977b3631167028862bE2a173976CA11",
       JSON_RPC_URL: "https://1rpc.io/gnosis",
       CONTRACT_JSON_URL: "https://raw.githubusercontent.com/GenerationSoftware/pt-v5-mainnet/196aa20f4a0b3e651d0504ffeb0e1b9a08c7ccb6/deployments/gnosis/contracts.json",
       SUBGRAPH_URL: 'https://api.studio.thegraph.com/query/63100/pt-v5-gnosis/version/latest',
@@ -96,6 +97,7 @@ const processAllChains = async (runCount) => {
     // {
     //   CHAIN_ID: 534352,
     //   PRIZE_POOL_ADDRESS: "0xa6ecd65c3eecdb59c2f74956ddf251ab5d899845",
+    //   MULTICALL_ADDRESS: "0xcA11bde05977b3631167028862bE2a173976CA11",
     //   JSON_RPC_URL: "https://1rpc.io/scroll",
     //   CONTRACT_JSON_URL: "https://raw.githubusercontent.com/GenerationSoftware/pt-v5-mainnet/196aa20f4a0b3e651d0504ffeb0e1b9a08c7ccb6/deployments/scroll/contracts.json",
     //   SUBGRAPH_URL: 'https://api.studio.thegraph.com/query/63100/pt-v5-scroll/version/latest',
@@ -108,29 +110,72 @@ const processAllChains = async (runCount) => {
   // Process all chains in parallel
   console.log(`Starting to process ${chains.length} chains in parallel...`);
   
-  const processChain = async (chain,runCount) => {
+  const processChain = async (chain, runCount) => {
     try {
       console.log(`Processing chain ${chain.CHAIN_ID}...`);
       
-      const command = `JSON_RPC_URL=${chain.JSON_RPC_URL} ptv5 utils compileWinners -o ./${OUTPUT_DIRECTORY_NAME} -p ${chain.PRIZE_POOL_ADDRESS} -c ${chain.CHAIN_ID} -j ${chain.CONTRACT_JSON_URL} -s ${chain.SUBGRAPH_URL} -r ${chain.REMOTE_STATUS_URL}`;
+      // Prepare command and arguments for spawn
+      const env = { ...process.env, JSON_RPC_URL: chain.JSON_RPC_URL };
+      const args = [
+        'utils', 'compileWinners',
+        '-o', `./${OUTPUT_DIRECTORY_NAME}`,
+        '-p', chain.PRIZE_POOL_ADDRESS,
+        '-c', chain.CHAIN_ID.toString(),
+        '-j', chain.CONTRACT_JSON_URL,
+        '-s', chain.SUBGRAPH_URL,
+        '-r', chain.REMOTE_STATUS_URL,
+        '-m', chain.MULTICALL_ADDRESS
+      ];
       
-      console.log(`Executing command for chain ${chain.CHAIN_ID}`);
-      const { stdout, stderr } = await execPromise(command);
+      console.log(`Executing command for chain ${chain.CHAIN_ID}:`);
+      console.log(`JSON_RPC_URL=${chain.JSON_RPC_URL} ptv5 ${args.join(' ')}`);
       
-      if (stderr) {
-        console.error(`Error for chain ${chain.CHAIN_ID}:`, stderr);
-      }
-      
-      console.log(`Output for chain ${chain.CHAIN_ID}:`, stdout);
-      console.log(`Completed processing chain ${chain.CHAIN_ID}`);
-
-      // Commit and push any changes
-      const committed = await commitAndPushChanges(runCount);
-      if (committed) {
-        console.log(`Changes from run #${runCount} have been committed and pushed`);
-      }
-      
-      return { chainId: chain.CHAIN_ID, success: true };
+      // Use spawn to get real-time output
+      return new Promise((resolve, reject) => {
+        const childProcess = spawn('ptv5', args, { env });
+        let stdoutData = '';
+        let stderrData = '';
+        
+        // Stream stdout in real-time
+        childProcess.stdout.on('data', (data) => {
+          const output = data.toString();
+          stdoutData += output;
+          console.log(`[Chain ${chain.CHAIN_ID} - STDOUT]: ${output.trim()}`);
+        });
+        
+        // Stream stderr in real-time
+        childProcess.stderr.on('data', (data) => {
+          const output = data.toString();
+          stderrData += output;
+          console.error(`[Chain ${chain.CHAIN_ID} - STDERR]: ${output.trim()}`);
+        });
+        
+        // Handle process completion
+        childProcess.on('close', async (code) => {
+          console.log(`\nProcess for chain ${chain.CHAIN_ID} exited with code ${code}`);
+          
+          if (code === 0) {
+            console.log(`Completed processing chain ${chain.CHAIN_ID}`);
+            
+            // Commit and push any changes
+            const committed = await commitAndPushChanges(runCount);
+            if (committed) {
+              console.log(`Changes from run #${runCount} have been committed and pushed`);
+            }
+            
+            resolve({ chainId: chain.CHAIN_ID, success: true });
+          } else {
+            console.error(`Failed to process chain ${chain.CHAIN_ID} with exit code ${code}`);
+            resolve({ chainId: chain.CHAIN_ID, success: false, error: `Process exited with code ${code}` });
+          }
+        });
+        
+        // Handle process errors
+        childProcess.on('error', (error) => {
+          console.error(`Error executing process for chain ${chain.CHAIN_ID}:`, error.message);
+          reject({ chainId: chain.CHAIN_ID, success: false, error: error.message });
+        });
+      });
     } catch (error) {
       console.error(`Failed to process chain ${chain.CHAIN_ID}:`, error.message);
       return { chainId: chain.CHAIN_ID, success: false, error: error.message };
@@ -183,7 +228,7 @@ const main = async () => {
     }
     
     console.log(`Waiting 30 seconds before next run...`);
-    await sleep(30000); // Wait 30 seconds
+    await sleep(10000); // Wait 30 seconds
   }
 };
 
