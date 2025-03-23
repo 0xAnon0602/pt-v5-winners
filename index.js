@@ -15,7 +15,6 @@ const commitAndPushChanges = async (runCount) => {
     
     // Check if there are any changes
     const { stdout: statusOutput } = await execPromise('git status --porcelain')
-    console.log(statusOutput);
     
     if (!statusOutput.trim()) {
       console.log('No changes detected, skipping commit');
