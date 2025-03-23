@@ -1,7 +1,7 @@
 {
   "status": "FAILURE",
-  "createdAt": 1742766021507,
-  "updatedAt": 1742766024733,
+  "createdAt": 1742766157496,
+  "updatedAt": 1742766160607,
   "runtime": 4,
   "error": {
     "reason": "missing revert data in call exception; Transaction reverted without a reason string",
@@ -17,7 +17,7 @@
       "code": "SERVER_ERROR",
       "status": 408,
       "headers": {
-        "date": "Sun, 23 Mar 2025 21:40:24 GMT",
+        "date": "Sun, 23 Mar 2025 21:42:40 GMT",
         "content-type": "application/json",
         "transfer-encoding": "chunked",
         "connection": "keep-alive",
@@ -26,7 +26,7 @@
         "x-drpc-owner-id": "cb501251-31a8-4028-8b0a-54679f15c385",
         "x-drpc-owner-tier": "free",
         "x-drpc-provider-id": "drpc-public-multiregion",
-        "x-drpc-trace-id": "0f565d98c733762374c13bf34e4d7592",
+        "x-drpc-trace-id": "a0a36ca9b806d3332f39a5c4c123c272",
         "strict-transport-security": "max-age=31536000; includeSubDomains",
         "access-control-allow-credentials": "true",
         "access-control-allow-methods": "GET, PUT, POST, DELETE, PATCH, OPTIONS",
@@ -34,7 +34,7 @@
         "access-control-max-age": "1728000",
         "cf-cache-status": "DYNAMIC",
         "server": "cloudflare",
-        "cf-ray": "925116355da58599-BOM"
+        "cf-ray": "9251198789fe4853-BOM"
       },
       "body": "{\"id\":43,\"jsonrpc\":\"2.0\",\"error\":{\"message\":\"Request timeout on the free tier, please upgrade your tier to the paid one\",\"code\":28}}",
       "requestBody": "{\"method\":\"eth_call\",\"params\":[{\"to\":\"0xca11bde05977b3631167028862be2a173976ca11\",\"data\":\"0xbce38bd70000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000020000000000000000000000000a6ecd65c3eecdb59c2f74956ddf251ab5d899845000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000044942199600000000000000000000000000000000000000000000000000000000\"},\"latest\"],\"id\":43,\"jsonrpc\":\"2.0\"}",
