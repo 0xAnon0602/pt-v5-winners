@@ -96,7 +96,7 @@ const processAllChains = async (runCount) => {
     {
       CHAIN_ID: 534352,
       PRIZE_POOL_ADDRESS: "0xa6ecd65c3eecdb59c2f74956ddf251ab5d899845",
-      JSON_RPC_URL: "https://scroll.drpc.org",
+      JSON_RPC_URL: "https://1rpc.io/scroll	",
       CONTRACT_JSON_URL: "https://raw.githubusercontent.com/GenerationSoftware/pt-v5-mainnet/196aa20f4a0b3e651d0504ffeb0e1b9a08c7ccb6/deployments/scroll/contracts.json",
       SUBGRAPH_URL: 'https://api.studio.thegraph.com/query/63100/pt-v5-scroll/version/latest',
       REMOTE_STATUS_URL: 'https://raw.githubusercontent.com/GenerationSoftware/pt-v5-winners/refs/heads/main/winners/vaultAccounts'
