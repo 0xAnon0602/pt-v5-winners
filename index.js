@@ -88,7 +88,7 @@ const processAllChains = async (runCount) => {
       CHAIN_ID: 100,
       PRIZE_POOL_ADDRESS: "0x0c08c2999e1a14569554eddbcda9da5e1918120f",
       MULTICALL_ADDRESS: "0xcA11bde05977b3631167028862bE2a173976CA11",
-      JSON_RPC_URL: "https://1rpc.io/gnosis",
+      JSON_RPC_URL: "https://rpc.gnosischain.com",
       CONTRACT_JSON_URL: "https://raw.githubusercontent.com/GenerationSoftware/pt-v5-mainnet/196aa20f4a0b3e651d0504ffeb0e1b9a08c7ccb6/deployments/gnosis/contracts.json",
       SUBGRAPH_URL: 'https://api.studio.thegraph.com/query/63100/pt-v5-gnosis/version/latest',
       REMOTE_STATUS_URL: 'https://raw.githubusercontent.com/GenerationSoftware/pt-v5-winners/refs/heads/main/winners/vaultAccounts'
