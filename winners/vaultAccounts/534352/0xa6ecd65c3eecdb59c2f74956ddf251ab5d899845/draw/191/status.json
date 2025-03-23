@@ -1,8 +1,8 @@
 {
   "status": "FAILURE",
-  "createdAt": 1742766939437,
-  "updatedAt": 1742766941070,
-  "runtime": 2,
+  "createdAt": 1742767453001,
+  "updatedAt": 1742767456323,
+  "runtime": 4,
   "error": {
     "reason": "missing revert data in call exception; Transaction reverted without a reason string",
     "code": "CALL_EXCEPTION",
@@ -15,7 +15,7 @@
     "error": {
       "reason": "processing response error",
       "code": "SERVER_ERROR",
-      "body": "{\"jsonrpc\":\"2.0\",\"error\":{\"code\":-32000,\"message\":\"json: cannot unmarshal string into Go struct field Response.error of type xjsonrpc.ResponseError\"},\"id\":44}",
+      "body": "{\"jsonrpc\":\"2.0\",\"error\":{\"code\":-32000,\"message\":\"invalid character '<' looking for beginning of value\"},\"id\":44}",
       "error": {
         "code": -32000
       },

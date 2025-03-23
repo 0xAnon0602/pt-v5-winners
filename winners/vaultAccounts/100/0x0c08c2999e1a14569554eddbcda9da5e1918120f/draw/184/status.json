@@ -1,7 +1,7 @@
 {
   "status": "FAILURE",
-  "createdAt": 1742767105988,
-  "updatedAt": 1742767108173,
+  "createdAt": 1742767140391,
+  "updatedAt": 1742767142761,
   "runtime": 3,
   "error": {
     "reason": "missing revert data in call exception; Transaction reverted without a reason string",
