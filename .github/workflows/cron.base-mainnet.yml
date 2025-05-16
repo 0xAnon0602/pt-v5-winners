@@ -1,8 +1,8 @@
 name: CronJob - Base Mainnet
-on:
-  schedule:
-    - cron: "5 */2 * * *" # ie. 2:05am, 4:05pm, 6:05pm, etc.
-  push:
+# on:
+#   schedule:
+#     - cron: "5 */2 * * *" # ie. 2:05am, 4:05pm, 6:05pm, etc.
+#   push:
 env:
   CHAIN_ID: 8453
   PRIZE_POOL_ADDRESS: "0x45b2010d8A4f08b53c9fa7544C51dFd9733732cb"
