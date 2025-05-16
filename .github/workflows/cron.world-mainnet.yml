@@ -1,5 +1,6 @@
 name: CronJob - World Mainnet
-# on:
+on:
+  workflow_dispatch:
 #   schedule:
 #     - cron: "5 */2 * * *" # ie. 2:05am, 4:05pm, 6:05pm, etc.
 #   push:
