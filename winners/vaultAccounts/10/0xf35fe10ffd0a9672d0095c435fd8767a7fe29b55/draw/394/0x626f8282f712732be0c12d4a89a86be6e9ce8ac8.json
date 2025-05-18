@@ -23,5 +23,14 @@
     "0x7be3b98e60c26081631d81295380c486ff34ac4f",
     "0x0e9b063789909565ceda1fba162474405a151e66"
   ],
-  "winners": []
+  "winners": [
+    {
+      "user": "0x5668ead1edb8e2a4d724c8fb9cb5ffeabeb422dc",
+      "prizes": {
+        "4": [
+          129
+        ]
+      }
+    }
+  ]
 }

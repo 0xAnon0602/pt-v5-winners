@@ -5,5 +5,17 @@
   "userAddresses": [
     "0xd553cdfe0a827a0b7781a7ec39370743be0a19c3"
   ],
-  "winners": []
+  "winners": [
+    {
+      "user": "0xd553cdfe0a827a0b7781a7ec39370743be0a19c3",
+      "prizes": {
+        "3": [
+          11,
+          17,
+          36,
+          49
+        ]
+      }
+    }
+  ]
 }

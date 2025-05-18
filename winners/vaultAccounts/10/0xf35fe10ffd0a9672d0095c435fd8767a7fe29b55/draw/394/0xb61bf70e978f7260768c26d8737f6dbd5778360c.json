@@ -5,5 +5,14 @@
   "userAddresses": [
     "0xdebd7848f351f4aa3c41a111a71c81bca3cb24e3"
   ],
-  "winners": []
+  "winners": [
+    {
+      "user": "0xdebd7848f351f4aa3c41a111a71c81bca3cb24e3",
+      "prizes": {
+        "3": [
+          60
+        ]
+      }
+    }
+  ]
 }
