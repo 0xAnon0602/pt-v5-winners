@@ -1,9 +1,9 @@
 name: CronJob - Gnosis Mainnet
 on:
   workflow_dispatch:
-#   schedule:
-#     - cron: "5 */2 * * *" # ie. 2:05am, 4:05pm, 6:05pm, etc.
-#   push:
+  repository_dispatch:
+    types: [run-gnosis-cronjob]
+    
 env:
   CHAIN_ID: 100
   PRIZE_POOL_ADDRESS: "0x0c08c2999e1a14569554eddbcda9da5e1918120f"

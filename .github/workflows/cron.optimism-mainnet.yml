@@ -1,9 +1,9 @@
 name: CronJob - Optimism Mainnet
 on:
   workflow_dispatch:
-#   schedule:
-#     - cron: "5 */2 * * *" # ie. 2:05am, 4:05pm, 6:05pm, etc.
-#   push:
+  repository_dispatch:
+    types: [run-optimism-cronjob]
+    
 env:
   CHAIN_ID: 10
   PRIZE_POOL_ADDRESS: "0xf35fe10ffd0a9672d0095c435fd8767a7fe29b55"
