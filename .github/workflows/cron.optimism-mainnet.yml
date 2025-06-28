@@ -53,18 +53,17 @@ jobs:
         with:
           run_command: ptv5 utils compileWinners -o ./${{ env.OUTPUT_DIRECTORY_NAME }} -p ${{ env.PRIZE_POOL_ADDRESS }} -c ${{ env.CHAIN_ID }} -j ${{ env.CONTRACT_JSON_URL }} -s ${{ env.SUBGRAPH_URL }} -r ${{ env.REMOTE_STATUS_URL }}
 
-      # 3. Commit
-      - name: Commit Optimism Mainnet
+      # 3. Commit and Push
+      - name: Commit and Push Optimism Mainnet
         if: steps.compileWinnersOptimism.outputs.runStatus == 'true'
         continue-on-error: true
         run: |
           git config pull.rebase false
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git pull
-          ls
+          git pull origin ${{ github.ref }} --allow-unrelated-histories --no-edit || true
           git add ./${{ env.OUTPUT_DIRECTORY_NAME }}
-          git commit -m "Add mainnet winner results for Optimism Mainnet draw #${{ steps.compileWinnersOptimism.outputs.drawId }}"
+          git commit -m "Add mainnet winner results for Optimism Mainnet draw #${{ steps.compileWinnersOptimism.outputs.drawId }}" || true
           git push origin ${{ github.ref }} --force
 
       # 4. Push
