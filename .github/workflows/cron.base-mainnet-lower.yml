@@ -15,7 +15,7 @@ env:
   REMOTE_STATUS_URL: 'https://raw.githubusercontent.com/0xAnon0602/pt-v5-winners/refs/heads/tier/winners/vaultAccounts'
   NODE_OPTIONS: "--max_old_space_size=32768"
   DEBUG: true
-  PRIZE_TIERS_TO_COMPUTE: 1,2,3,4,5
+  PRIZE_TIERS_TO_COMPUTE: 4,5
 permissions: write-all
 jobs:
   runCLI:
