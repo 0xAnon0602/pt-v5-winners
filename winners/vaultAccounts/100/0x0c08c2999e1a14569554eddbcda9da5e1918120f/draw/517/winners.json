@@ -1,0 +1,19 @@
+{
+  "0x216a7d520992ed198593a16e0b17c784c9cdc660": [],
+  "0x2af72b1ca996186d3f9842c415a302a8585277f9": [],
+  "0x308dee147d98b3c3e6a211337cf96dbdad54e7cc": [],
+  "0x65f3aea2594d82024b7ee98ddcf08f991ab1c626": [],
+  "0x874169673a5c72867f72ce5ca64c38d96b75d075": [],
+  "0xb75af20ecadabed9049cc2f50e38bad2768b35cf": [],
+  "0xbb7e99abccce01589ad464ff698ad139b0705d90": [
+    {
+      "user": "0x08e166bddc849cfd91084e828b5096085e8e0875",
+      "prizes": {
+        "3": [
+          0
+        ]
+      }
+    }
+  ],
+  "0xc9dbcc909f951d9353fc6a24accd65d746dd67c4": []
+}
